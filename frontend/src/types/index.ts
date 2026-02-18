@@ -67,7 +67,7 @@ export interface Unit {
 
 // --- Usuario ---
 
-export type UserRole = 'OPERADOR' | 'SUPERVISOR' | 'MOVIL' | 'ADMIN';
+export type UserRole = 'OPERADOR' | 'ADMIN' | 'PATRULLERO';
 
 export interface AppUser {
   id: string;
