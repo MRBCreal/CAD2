@@ -1,6 +1,6 @@
 // Script para crear 3 usuarios de prueba en Firebase Auth + Firestore
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -17,32 +17,48 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const USERS = [
-    { email: 'operador@cad.cl', password: 'Cad2025!', displayName: 'Operador Demo', role: 'OPERADOR' },
+    { email: 'operador2@cad.cl', password: 'Cad2025!', displayName: 'Operador Demo', role: 'OPERADOR' },
     { email: 'admin@cad.cl', password: 'Cad2025!', displayName: 'Administrador Demo', role: 'ADMIN' },
     { email: 'patrullero@cad.cl', password: 'Cad2025!', displayName: 'Patrullero Demo', role: 'PATRULLERO' },
 ];
 
 async function createUser({ email, password, displayName, role }) {
     try {
-        console.log(`Creando ${role}: ${email}...`);
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        const uid = cred.user.uid;
+        console.log(`Creando/Actualizando ${role}: ${email}...`);
+        let uid;
 
-        await setDoc(doc(db, 'users', uid), {
-            displayName,
-            role,
-            email,
-            enabled: true,
-        });
+        try {
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
+            uid = cred.user.uid;
+            console.log(`  ✨ Usuario creado`);
+        } catch (authErr) {
+            if (authErr.code === 'auth/email-already-in-use') {
+                // Si ya existe, intentamos loguearnos para obtener el UID
+                try {
+                    const loginCred = await signInWithEmailAndPassword(auth, email, password);
+                    uid = loginCred.user.uid;
+                    console.log(`  ℹ️  Usuario ya existía. Login exitoso.`);
+                } catch (loginErr) {
+                    console.error(`  ❌ Error logueando usuario existente: ${loginErr.message}`);
+                    return false;
+                }
+            } else {
+                throw authErr;
+            }
+        }
 
-        console.log(`  ✅ ${role} creado (uid: ${uid})`);
+        if (uid) {
+            await setDoc(doc(db, 'users', uid), {
+                displayName,
+                role,
+                email,
+                enabled: true,
+            }, { merge: true });
+            console.log(`  ✅ Rol ${role} actualizado en Firestore (uid: ${uid})`);
+        }
         return true;
     } catch (err) {
-        if (err.code === 'auth/email-already-in-use') {
-            console.log(`  ℹ️  ${email} ya existe — OK`);
-            return true;
-        }
-        console.error(`  ❌ Error creando ${email}:`, err.message);
+        console.error(`  ❌ Error general con ${email}:`, err.message);
         return false;
     }
 }
