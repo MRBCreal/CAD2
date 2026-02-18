@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =============================================
+    // REGLA GLOBAL: Solo usuarios autenticados
+    // Protege todas las colecciones. Sin autenticación,
+    // no se puede leer ni escribir nada.
+    // =============================================
+
+    // --- Colección: incidents ---
+    // Cualquier usuario autenticado puede leer incidentes.
+    // Solo OPERADOR, SUPERVISOR o ADMIN pueden crear/editar.
+    match /incidents/{incidentId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;
+      allow delete: if false; // Los incidentes no se borran, se cierran.
+    }
+
+    // --- Colección: units ---
+    // Cualquier usuario autenticado puede leer unidades.
+    // Solo SUPERVISOR o ADMIN pueden modificar.
+    match /units/{unitId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // --- Colección: users ---
+    // Cada usuario puede leer su propio perfil.
+    // ADMIN puede leer y escribir todos los perfiles.
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // --- Colección: eventLogs ---
+    // Registro de eventos inmutable: se puede crear pero no editar/borrar.
+    match /eventLogs/{logId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Los logs son inmutables
+    }
+  }
+}

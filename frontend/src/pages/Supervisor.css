@@ -1,0 +1,381 @@
+.supervisor {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* ===== Layout ===== */
+.supervisor-layout {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.map-container {
+    flex: 1;
+    position: relative;
+}
+
+/* Leaflet overrides for dark theme */
+.map-container .leaflet-container {
+    background: var(--bg-secondary);
+}
+
+.map-container .leaflet-control-zoom a {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.map-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.8rem;
+}
+
+.map-popup strong {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.custom-marker {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* ===== Sidebar ===== */
+.supervisor-sidebar {
+    width: 380px;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-color);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-section {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+}
+
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    background: var(--accent-glow);
+    color: var(--accent-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.empty-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* ===== Unit Cards ===== */
+.unit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.unit-card {
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    transition: background 0.15s;
+}
+
+.unit-card:hover {
+    background: var(--bg-hover);
+}
+
+.unit-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.unit-card-header strong {
+    font-size: 0.9rem;
+}
+
+.unit-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.unit-type {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.unit-actions {
+    display: flex;
+    gap: 0.35rem;
+}
+
+/* ===== Incident Cards ===== */
+.incident-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.incident-card {
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.incident-card:hover {
+    border-color: var(--accent);
+}
+
+.incident-card.selected {
+    border-color: var(--accent);
+    background: rgba(79, 70, 229, 0.08);
+}
+
+.incident-card-header {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+}
+
+.incident-card-body strong {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+}
+
+.incident-address {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ===== Incident Actions (expanded) ===== */
+.incident-actions {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.action-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.action-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+/* ===== Action Buttons ===== */
+.btn-action {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: inherit;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.btn-info {
+    background: rgba(14, 165, 233, 0.15);
+    color: #38bdf8;
+    border-color: rgba(14, 165, 233, 0.3);
+}
+
+.btn-info:hover {
+    background: rgba(14, 165, 233, 0.25);
+}
+
+.btn-success {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.btn-success:hover {
+    background: rgba(34, 197, 94, 0.25);
+}
+
+.btn-muted {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+    border-color: rgba(107, 114, 128, 0.3);
+}
+
+.btn-muted:hover {
+    background: rgba(107, 114, 128, 0.25);
+}
+
+.btn-primary-sm {
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    border-color: transparent;
+}
+
+.btn-primary-sm:hover {
+    box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+/* ===== Assigned Units ===== */
+.assigned-units {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.assigned-unit-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent-light);
+}
+
+.chip-remove {
+    background: none;
+    border: none;
+    color: var(--accent-light);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+}
+
+.chip-remove:hover {
+    opacity: 1;
+}
+
+/* ===== Assign Dropdown ===== */
+.assign-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.assign-dropdown {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.assign-option {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+    text-align: left;
+    background: var(--bg-secondary);
+    border: none;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.assign-option:last-child {
+    border-bottom: none;
+}
+
+.assign-option:hover {
+    background: var(--bg-hover);
+}
+
+/* Priority badges for supervisor */
+.priority-baja {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+}
+
+.priority-media {
+    background: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+}
+
+.priority-alta {
+    background: rgba(249, 115, 22, 0.15);
+    color: #fb923c;
+}
+
+.priority-critica {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .supervisor-layout {
+        flex-direction: column;
+    }
+
+    .map-container {
+        height: 50vh;
+    }
+
+    .supervisor-sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+}
