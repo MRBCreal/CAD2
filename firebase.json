@@ -6,7 +6,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "cad-seguridad-municipal",
+    "site": "red-gestion-publica-rb",
     "public": "frontend/dist",
     "ignore": [
       "firebase.json",
