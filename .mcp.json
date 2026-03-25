@@ -1,8 +1,12 @@
 {
   "mcpServers": {
     "stitch": {
-      "command": "npx",
-      "args": ["stitch-mcp"],
+      "type": "http",
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "Authorization": "Bearer AQ.Ab8RN6I2agL1rBoH4GfluuggZGHwvQ1TAGjFcgijZnvIhO1dwQ",
+        "X-Goog-User-Project": "stitch-ui-6b0b0"
+      },
       "description": "Stitch MCP for design system generation and screen editing"
     }
   }
