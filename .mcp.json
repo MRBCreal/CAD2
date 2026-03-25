@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "stitch": {
+      "command": "npx",
+      "args": ["stitch-mcp"],
+      "description": "Stitch MCP for design system generation and screen editing"
+    }
+  }
+}
