@@ -6,6 +6,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "red-gestion-publica-rb",
     "public": "frontend/dist",
     "ignore": [
       "firebase.json",

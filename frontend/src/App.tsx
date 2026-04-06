@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './hooks/useAuth';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Supervisor from './pages/Supervisor';
 import Patrullero from './pages/Patrullero';
 import type { UserRole } from './types';
 import './index.css';
@@ -102,6 +103,15 @@ export default function App() {
             element={
               <RoleRoute allowedRoles={['ADMIN']}>
                 <Admin />
+              </RoleRoute>
+            }
+          />
+          {/* Supervisor - Vista de supervisión para OPERADOR y ADMIN */}
+          <Route
+            path="/supervisor"
+            element={
+              <RoleRoute allowedRoles={['OPERADOR', 'ADMIN']}>
+                <Supervisor />
               </RoleRoute>
             }
           />
